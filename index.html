@@ -1,46 +1,203 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Yum Repo for Docker/K8S</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yum Repo for Docker/K8S</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f6f8fa;
+            color: #24292e;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            font-size: 2em;
+            color: #0366d6;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 10px;
+        }
+        p {
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #0366d6;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(27,31,35,0.12);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(27,31,35,0.15);
+        }
+        em {
+            font-style: normal;
+            background-color: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .tabs-container {
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(27,31,35,0.12), 0 8px 24px rgba(27,31,35,0.12);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e1e4e8;
+            overflow: hidden;
+            background-color: #f6f8fa;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #e1e4e8;
+            border-bottom: none;
+            background-color: #f6f8fa;
+            color: #0366d6;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab-button.active {
+            background-color: #ffffff;
+            color: #0366d6;
+            border-bottom: 1px solid #ffffff;
+        }
+        .code-content {
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            position: relative;
+        }
+        pre {
+            background-color: #f6f8fa;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.4;
+            margin: 0;
+        }
+        code {
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: #f6f8fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 1em;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 80px; /* Adjust width as needed */
+            height: 32px; /* Adjust height as needed */
+            padding: 0;
+            border: none;
+            background-color: #0366d6;
+            color: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-align: center;
+            line-height: 32px; /* Match height for vertical centering */
+            transition: background-color 0.3s;
+            z-index: 10;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<h1>Yum Repo for Docker/K8S</h1>
-<p>If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required.</p>
+    <div class="container">
+        <h1>Yum Repo for Docker/K8S</h1>
 
-<p>For online documentation and support please refer to
-<a href="http://nginx.org/">nginx.org</a>.<br/>
-Commercial support is available at
-<a href="http://nginx.com/">nginx.com</a>.</p>
+        <p><a href="rpms" class="button">Enter the RPM folder</a></p>
 
-<p><em>Thank you for using nginx.</em></p>
+        <p><em>Please create the repo file in <code>/etc/yum.repos.d/</code></em></p>
 
-<br />
-<p><a href = "rpms" >Enter the RPM folder </a></p>
-<br />
+        <div class="tabs-container">
+            <div class="tabs">
+                <span class="tab-button active" data-baseurl="kylinv10-sp2">kylinv10sp2</span>
+                <span class="tab-button" data-baseurl="kylinv10-sp3">kylinv10sp3</span>
+                <span class="tab-button" data-baseurl="openEuler22.03-LTS-SP4">openEuler 22.03 LTS SP4</span>
+                <span class="tab-button" data-baseurl="openEuler24.03-LTS">openEuler 24.03 LTS</span>
+            </div>
+            <div class="code-content">
+                <button class="copy-button" onclick="copyCode()">Copy</button>
+                <pre id="code-block">
+cat > /etc/yum.repos.d/rpms.repo << EOF
+[custom-pkgs]
+name=custom-pkgs
+baseurl=http://<span id="hostname"></span>/rpms/<span id="baseurl">kylinv10-sp3</span>
+enabled=1
+gpgcheck=0
+EOF
+                </pre>
+            </div>
+        </div>
+    </div>
 
-<p><em>Please create the repo file to /etc/yum.repos.d/</em></p>
+    <script>
+        document.getElementById("hostname").textContent = location.host;
 
-<script type="text/javascript">
-  var ip = location.host;
-  var comment = "###############################################";
-  document.write(comment.fontcolor("Red"));
-  document.write("<pm><em></em></p>");
-  document.write("cat > /etc/yum.repos.d/rpms.repo \<\<EOF"+"<br>");
-  document.write("[custom-pkgs]"+"<br>");
-  document.write("name=custom-pkgs"+"<br>");
-  document.write("baseurl=http://"+(ip)+"/rpms/kylinv10-sp3"+"<br>");
-  document.write("enabled=1"+"<br>");
-  document.write("gpgcheck=0"+"<br>");
-  document.write("EOF"+"<br>");
-  document.write(comment.fontcolor("Red"));
-</script>
+        const tabs = document.querySelectorAll('.tab-button');
+        const baseurlElement = document.getElementById('baseurl');
+        const codeBlock = document.getElementById('code-block');
+        const copyButton = document.querySelector('.copy-button');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                // Add active class to the clicked tab
+                tab.classList.add('active');
+                // Update baseurl in the code block
+                baseurlElement.textContent = tab.getAttribute('data-baseurl');
+            });
+        });
+
+        function copyCode() {
+            const code = codeBlock.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                // Create a temporary div to show the message
+                const message = document.createElement('div');
+                message.textContent = 'Copied!';
+                message.style.position = 'absolute';
+                message.style.top = '10px';
+                message.style.right = '10px';
+                message.style.backgroundColor = '#28a745';
+                message.style.color = '#ffffff';
+                message.style.padding = '5px 10px';
+                message.style.borderRadius = '5px';
+                message.style.zIndex = '1000';
+                document.body.appendChild(message);
+
+                // Hide the message after 2 seconds
+                setTimeout(() => {
+                    document.body.removeChild(message);
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy code: ', err);
+            });
+        }
+    </script>
 </body>
 </html>
