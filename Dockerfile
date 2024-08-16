@@ -1,4 +1,4 @@
-FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp3 as build
+FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp3 as kylinv10sp3
 
 COPY  *.repo /etc/yum.repos.d/
 RUN mkdir /rpms/kylinv10-sp3/ -p && \
@@ -11,6 +11,6 @@ RUN createrepo /rpms/kylinv10-sp3
 
 FROM nginx:alpine
 
-COPY --from=build /rpms /usr/share/nginx/html/rpms
+COPY --from=kylinv10sp3 /rpms /usr/share/nginx/html/rpms
 COPY index.html /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf

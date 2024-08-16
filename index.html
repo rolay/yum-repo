@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Yum Repo for Docker/K8S Etc installation</title>
+<title>Yum Repo for Docker/K8S</title>
 <style>
     body {
         width: 35em;
@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-<h1>Yum Repo for Docker/K8S Etc installation</h1>
+<h1>Yum Repo for Docker/K8S</h1>
 <p>If you see this page, the nginx web server is successfully installed and
 working. Further configuration is required.</p>
 
@@ -23,27 +23,23 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 
 <br />
+<p><a href = "rpms" >Enter the RPM folder </a></p>
 <br />
 
-<a href = "rpms" >Enter the RPM folder </a><br />
-
-<br />
-<br />
-
-<p><em>Please create the file wise2c.repo as below and then move to /etc/yum.repos.d/</em></p>
+<p><em>Please create the repo file to /etc/yum.repos.d/</em></p>
 
 <script type="text/javascript">
   var ip = location.host;
   var comment = "###############################################";
   document.write(comment.fontcolor("Red"));
   document.write("<pm><em></em></p>");
-  document.write("cat > /etc/yum.repos.d/rpms.repo <<EOF"+"<br>");
+  document.write("cat > /etc/yum.repos.d/rpms.repo \<\<EOF"+"<br>");
   document.write("[custom-pkgs]"+"<br>");
   document.write("name=custom-pkgs"+"<br>");
   document.write("baseurl=http://"+(ip)+"/rpms/kylinv10-sp3"+"<br>");
   document.write("enabled=1"+"<br>");
   document.write("gpgcheck=0"+"<br>");
-  document.write("EOF");
+  document.write("EOF"+"<br>");
   document.write(comment.fontcolor("Red"));
 </script>
 </body>
