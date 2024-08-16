@@ -34,7 +34,7 @@ jobs:
     - name: Build & Push
       uses: docker/build-push-action@v3    
       with:
-        context: .
+        context: ./
         push: true
         platforms: linux/arm64
         tags: |
