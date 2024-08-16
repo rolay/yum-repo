@@ -10,12 +10,13 @@ docker run -d -p 8090:8090 --name=yum-repo yum-repo:v1.28
 
 在需要安装docker/k8s的其它主机上, 创建一个repo文件至 /etc/yum.repos.d/
 ```
-cat > /etc/yum.repos.d/rpms.repo
+cat > /etc/yum.repos.d/rpms.repo <<EOF
 [custom-pkgs]
 name=custom-pkgs
 baseurl=http://$ip:8090/rpms/kylinv10-sp3
 enabled=1
 gpgcheck=0
+EOF
 ```
 
 上面的`$ip`请写为上述服务器的真实IP地址，然后就可以直接用yum install命令命令安装相关软件了。例如：
