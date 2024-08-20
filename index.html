@@ -200,17 +200,47 @@ EOF
 
         function copyCode() {
             const code = codeBlock.innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                // Show centered message
-                centerMessage.classList.add('visible');
 
-                // Hide centered message after 1 second
-                setTimeout(() => {
-                    centerMessage.classList.remove('visible');
-                }, 1000);
-            }).catch(err => {
-                console.error('Failed to copy code: ', err);
-            });
+            // Try the modern clipboard API
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showCopyMessage();
+                }).catch(err => {
+                    console.error('Failed to copy code: ', err);
+                    fallbackCopyTextToClipboard(code);
+                });
+            } else {
+                // Fallback if clipboard API is not available
+                fallbackCopyTextToClipboard(code);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";  // Avoid scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                showCopyMessage();
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function showCopyMessage() {
+            // Show centered message
+            centerMessage.classList.add('visible');
+
+            // Hide centered message after 1 second
+            setTimeout(() => {
+                centerMessage.classList.remove('visible');
+            }, 1000);
         }
     </script>
 </body>
