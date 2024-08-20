@@ -144,8 +144,8 @@
                 <button class="copy-button" onclick="copyCode()">Copy</button>
                 <pre id="code-block">
 cat > /etc/yum.repos.d/rpms.repo << EOF
-[custom-pkgs]
-name=custom-pkgs
+[pkgs]
+name=pkgs
 baseurl=http://<span id="hostname"></span>/rpms/<span id="baseurl">kylinv10-sp3</span>
 enabled=1
 gpgcheck=0
