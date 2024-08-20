@@ -106,8 +106,8 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 80px; /* Adjust width as needed */
-            height: 32px; /* Adjust height as needed */
+            width: 80px;
+            height: 32px;
             padding: 0;
             border: none;
             background-color: #0366d6;
@@ -116,12 +116,33 @@
             cursor: pointer;
             font-size: 0.9em;
             text-align: center;
-            line-height: 32px; /* Match height for vertical centering */
+            line-height: 32px;
             transition: background-color 0.3s;
             z-index: 10;
         }
         .copy-button:hover {
             background-color: #0056b3;
+        }
+
+        /* Centered message styling */
+        .center-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            z-index: 1000;
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .center-message.visible {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
         }
     </style>
 </head>
@@ -155,13 +176,16 @@ EOF
         </div>
     </div>
 
+    <!-- Centered Message -->
+    <div class="center-message" id="centerMessage">Copied!</div>
+
     <script>
         document.getElementById("hostname").textContent = location.host;
 
         const tabs = document.querySelectorAll('.tab-button');
         const baseurlElement = document.getElementById('baseurl');
         const codeBlock = document.getElementById('code-block');
-        const copyButton = document.querySelector('.copy-button');
+        const centerMessage = document.getElementById('centerMessage');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
@@ -177,23 +201,13 @@ EOF
         function copyCode() {
             const code = codeBlock.innerText;
             navigator.clipboard.writeText(code).then(() => {
-                // Create a temporary div to show the message
-                const message = document.createElement('div');
-                message.textContent = 'Copied!';
-                message.style.position = 'absolute';
-                message.style.top = '10px';
-                message.style.right = '10px';
-                message.style.backgroundColor = '#28a745';
-                message.style.color = '#ffffff';
-                message.style.padding = '5px 10px';
-                message.style.borderRadius = '5px';
-                message.style.zIndex = '1000';
-                document.body.appendChild(message);
+                // Show centered message
+                centerMessage.classList.add('visible');
 
-                // Hide the message after 2 seconds
+                // Hide centered message after 1 second
                 setTimeout(() => {
-                    document.body.removeChild(message);
-                }, 2000);
+                    centerMessage.classList.remove('visible');
+                }, 1000);
             }).catch(err => {
                 console.error('Failed to copy code: ', err);
             });
