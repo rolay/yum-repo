@@ -87,6 +87,6 @@ jobs:
         with:
           context: ./
           push: true
-          platforms: linux/arm64
+          platforms: linux/amd64,linux/arm64
           tags: |
             swr.cn-southwest-2.myhuaweicloud.com/${{ secrets.NS }}/yum-repo:${{ matrix.os }}
