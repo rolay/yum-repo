@@ -73,8 +73,8 @@
             transition: background-color 0.3s, color 0.3s;
         }
         .tab-button.active {
-            background-color: #ffffff;
-            color: #0366d6;
+            background-color: #0366d6;
+            color: #ffffff;
             border-bottom: 1px solid #ffffff;
         }
         .code-content {
@@ -84,6 +84,12 @@
             border-top: none;
             border-radius: 0 0 6px 6px;
             position: relative;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            color: #333333; /* Text color optimized for readability */
+        }
+        .code-content.active {
+            opacity: 1;
         }
         pre {
             background-color: #f6f8fa;
@@ -94,6 +100,7 @@
             white-space: pre-wrap;
             line-height: 1.4;
             margin: 0;
+            color: inherit; /* Inherits text color from .code-content */
         }
         code {
             font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
@@ -156,18 +163,18 @@
 
         <div class="tabs-container">
             <div class="tabs">
-                <span class="tab-button active" data-baseurl="kylinv10-sp2">kylinv10sp2</span>
-                <span class="tab-button" data-baseurl="kylinv10-sp3">kylinv10sp3</span>
-                <span class="tab-button" data-baseurl="openEuler22.03-LTS-SP4">openEuler 22.03 LTS SP4</span>
-                <span class="tab-button" data-baseurl="openEuler24.03-LTS">openEuler 24.03 LTS</span>
+                <span class="tab-button active" data-baseurl="kylinv10-sp2" data-bgcolor="#0366d6" data-color="#ffffff">kylinv10sp2</span>
+                <span class="tab-button" data-baseurl="kylinv10-sp3" data-bgcolor="#28a745" data-color="#ffffff">kylinv10sp3</span>
+                <span class="tab-button" data-baseurl="openEuler22.03-LTS-SP4" data-bgcolor="#d73a49" data-color="#ffffff">openEuler 22.03 LTS SP4</span>
+                <span class="tab-button" data-baseurl="openEuler24.03-LTS" data-bgcolor="#6f42c1" data-color="#ffffff">openEuler 24.03 LTS</span>
             </div>
-            <div class="code-content">
+            <div class="code-content active">
                 <button class="copy-button" onclick="copyCode()">Copy</button>
                 <pre id="code-block">
 cat > /etc/yum.repos.d/rpms.repo << EOF
 [pkgs]
 name=pkgs
-baseurl=http://<span id="hostname"></span>/rpms/<span id="baseurl">kylinv10-sp3</span>
+baseurl=http://<span id="hostname"></span>/rpms/<span id="baseurl">kylinv10-sp2</span>
 enabled=1
 gpgcheck=0
 EOF
@@ -184,24 +191,27 @@ EOF
 
         const tabs = document.querySelectorAll('.tab-button');
         const baseurlElement = document.getElementById('baseurl');
+        const codeContent = document.querySelector('.code-content');
         const codeBlock = document.getElementById('code-block');
         const centerMessage = document.getElementById('centerMessage');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
-                // Add active class to the clicked tab
                 tab.classList.add('active');
-                // Update baseurl in the code block
-                baseurlElement.textContent = tab.getAttribute('data-baseurl');
+                codeContent.classList.remove('active');
+                setTimeout(() => {
+                    baseurlElement.textContent = tab.getAttribute('data-baseurl');
+                    codeContent.style.backgroundColor = "#ffffff"; // Set to white for better readability
+                    codeContent.style.color = "#333333"; // Set text color for better contrast
+                    codeContent.classList.add('active');
+                }, 300);
             });
         });
 
         function copyCode() {
             const code = codeBlock.innerText;
 
-            // Try the modern clipboard API
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(code).then(() => {
                     showCopyMessage();
@@ -210,7 +220,6 @@ EOF
                     fallbackCopyTextToClipboard(code);
                 });
             } else {
-                // Fallback if clipboard API is not available
                 fallbackCopyTextToClipboard(code);
             }
         }
@@ -218,7 +227,7 @@ EOF
         function fallbackCopyTextToClipboard(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
-            textArea.style.position = "fixed";  // Avoid scrolling to bottom of page in MS Edge.
+            textArea.style.position = "fixed";
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
@@ -234,10 +243,8 @@ EOF
         }
 
         function showCopyMessage() {
-            // Show centered message
             centerMessage.classList.add('visible');
 
-            // Hide centered message after 1 second
             setTimeout(() => {
                 centerMessage.classList.remove('visible');
             }, 1000);
