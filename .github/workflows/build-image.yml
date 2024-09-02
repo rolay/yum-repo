@@ -67,8 +67,8 @@ jobs:
     strategy:
       matrix:
         os: 
-          - kylin-v10-sp2
-          - kylin-v10
+          - kylin-V10-sp2
+          - kylin-V10
           - openEuler-22
           - openEuler-24
     steps:
