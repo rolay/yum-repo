@@ -163,10 +163,10 @@
 
         <div class="tabs-container">
             <div class="tabs">
-                <span class="tab-button active" data-baseurl="kylinv10-sp2" data-bgcolor="#0366d6" data-color="#ffffff">kylinv10sp2</span>
-                <span class="tab-button" data-baseurl="kylinv10-sp3" data-bgcolor="#28a745" data-color="#ffffff">kylinv10sp3</span>
-                <span class="tab-button" data-baseurl="openEuler22.03-LTS-SP4" data-bgcolor="#d73a49" data-color="#ffffff">openEuler 22.03 LTS SP4</span>
-                <span class="tab-button" data-baseurl="openEuler24.03-LTS" data-bgcolor="#6f42c1" data-color="#ffffff">openEuler 24.03 LTS</span>
+                <span class="tab-button active" data-baseurl="kylin-V10-sp2" data-bgcolor="#0366d6" data-color="#ffffff">kylin V10 SP2</span>
+                <span class="tab-button" data-baseurl="kylin-V10" data-bgcolor="#28a745" data-color="#ffffff">kylin v10 SP3</span>
+                <span class="tab-button" data-baseurl="openEuler-22" data-bgcolor="#d73a49" data-color="#ffffff">openEuler 22.03 LTS SP4</span>
+                <span class="tab-button" data-baseurl="openEuler-24" data-bgcolor="#6f42c1" data-color="#ffffff">openEuler 24.03 LTS</span>
             </div>
             <div class="code-content active">
                 <button class="copy-button" onclick="copyCode()">Copy</button>
@@ -174,7 +174,7 @@
 cat > /etc/yum.repos.d/rpms.repo << EOF
 [pkgs]
 name=pkgs
-baseurl=http://<span id="hostname"></span>/rpms/<span id="baseurl">kylinv10-sp2</span>
+baseurl=http://<span id="hostname"></span>/rpms/<span id="baseurl">kylin-V10-sp2</span>
 enabled=1
 gpgcheck=0
 EOF

@@ -13,7 +13,7 @@ docker run -d -p 80:80 --name=yum-repo yum-repo:v1.28
 cat > /etc/yum.repos.d/rpms.repo <<EOF
 [pkgs]
 name=pkgs
-baseurl=http://$ip:8090/rpms/kylinv10-sp3
+baseurl=http://$ip/rpms/kylin-v10
 enabled=1
 gpgcheck=0
 EOF

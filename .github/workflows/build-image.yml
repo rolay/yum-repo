@@ -67,10 +67,10 @@ jobs:
     strategy:
       matrix:
         os: 
-          - kylinv10-sp2
-          - kylinv10-sp3
-          - openEuler22.03-LTS-SP4
-          - openEuler24.03-LTS
+          - kylin-v10-sp2
+          - kylin-v10
+          - openEuler-22
+          - openEuler-24
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
