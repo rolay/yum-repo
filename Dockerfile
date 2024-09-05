@@ -1,11 +1,13 @@
-ENV RPM_DIR=/rmps
-ENV RPMS="audit audit-libs-python3 bash-completion bind-utils curl chrony conntrack fuse \
+ARG RPM_DIR=/rmps
+ARG RPMS="audit audit-libs-python3 bash-completion bind-utils curl chrony conntrack fuse \
     git graphviz ipset ipvsadm iscsi-initiator-utils jq kubernetes-cni nfs-utils nc net-tools sysstat tar tcpdump \
     python3 python3-chardet python3-docker python3-pip python3-requests python3-jsonpatch python3-pyyaml python3-kubernetes python3-policycoreutils python3-libsemanage \
     podman cri-o container-selinux policycoreutils-python-utils kubectl kubelet kubeadm \
     docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
 
 FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp2 as kylinv10sp2
+ARG RPM_DIR
+ARG RPMS
 COPY  *.repo /etc/yum.repos.d/
 RUN mkdir ${RPM_DIR}/kylin-V10-sp2 -p && \
     yum install createrepo dnf-plugins-core -yq && \
@@ -13,6 +15,8 @@ RUN mkdir ${RPM_DIR}/kylin-V10-sp2 -p && \
 RUN createrepo ${RPM_DIR}/kylin-V10-sp2
 
 FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp3 as kylinv10sp3
+ARG RPM_DIR
+ARG RPMS
 COPY  *.repo /etc/yum.repos.d/
 RUN mkdir ${RPM_DIR}/kylin-V10 -p && \
     yum install createrepo dnf-plugins-core -yq && \
@@ -20,6 +24,8 @@ RUN mkdir ${RPM_DIR}/kylin-V10 -p && \
 RUN createrepo ${RPM_DIR}/kylin-V10
 
 FROM openeuler/openeuler:22.03-lts-sp4 as openEuler22
+ARG RPM_DIR
+ARG RPMS
 COPY  *.repo /etc/yum.repos.d/
 RUN mkdir ${RPM_DIR}/openEuler-22 -p && \
     yum install createrepo dnf-plugins-core -yq && \
@@ -27,6 +33,8 @@ RUN mkdir ${RPM_DIR}/openEuler-22 -p && \
 RUN createrepo ${RPM_DIR}/openEuler-22
 
 FROM openeuler/openeuler:24.03-lts as openEuler24
+ARG RPM_DIR
+ARG RPMS
 COPY  *.repo /etc/yum.repos.d/
 RUN mkdir ${RPM_DIR}/openEuler-24 -p && \
     yum install createrepo dnf-plugins-core -yq && \
