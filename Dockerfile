@@ -1,7 +1,8 @@
 ARG RPM_DIR=/rmps
-ARG RPMS=audit audit-libs-python3 bash-completion bind-utils curl chrony conntrack fuse git graphviz ipset ipvsadm iscsi-initiator-utils jq kubernetes-cni nfs-utils nc net-tools python3 python3-chardet python3-docker python3-pip python3-requests sysstat tar tcpdump \
-    podman cri-o container-selinux policycoreutils-python-utils python3-policycoreutils python3-libsemanage \
-    kubectl kubelet kubeadm \
+ARG RPMS=audit audit-libs-python3 bash-completion bind-utils curl chrony conntrack fuse \
+    git graphviz ipset ipvsadm iscsi-initiator-utils jq kubernetes-cni nfs-utils nc net-tools sysstat tar tcpdump \
+    python3 python3-chardet python3-docker python3-pip python3-requests python3-jsonpatch python3-pyyaml python3-kubernetes python3-policycoreutils python3-libsemanage \
+    podman cri-o container-selinux policycoreutils-python-utils kubectl kubelet kubeadm \
     docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp2 as kylinv10sp2
