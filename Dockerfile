@@ -22,7 +22,7 @@ COPY  *.repo /etc/yum.repos.d/
 RUN mkdir ${RPM_DIR}/kylin-V10 -p && \
     yum install createrepo dnf-plugins-core python3 python3-pip -yq && \
     yumdownloader --resolve --archlist=noarch,aarch64 --destdir=${RPM_DIR}/kylin-V10 ${RPMS} && \
-    pip3 download jsonpatch pyyaml kubernetes -d ${RPM_DIR}/kylin-V10-sp2/simple
+    pip3 download jsonpatch pyyaml kubernetes -d ${RPM_DIR}/kylin-V10/simple
 RUN createrepo ${RPM_DIR}/kylin-V10
 
 FROM openeuler/openeuler:22.03-lts-sp4 as openEuler22
@@ -32,7 +32,7 @@ COPY  *.repo /etc/yum.repos.d/
 RUN mkdir ${RPM_DIR}/openEuler-22 -p && \
     yum install createrepo dnf-plugins-core python3 python3-pip -yq && \
     yumdownloader --resolve --archlist=noarch,aarch64 --destdir=${RPM_DIR}/openEuler-22 ${RPMS} && \
-    pip3 download jsonpatch pyyaml kubernetes -d ${RPM_DIR}/kylin-V10-sp2/simple
+    pip3 download jsonpatch pyyaml kubernetes -d ${RPM_DIR}/openEuler-22/simple
 RUN createrepo ${RPM_DIR}/openEuler-22
 
 FROM openeuler/openeuler:24.03-lts as openEuler24
@@ -42,7 +42,7 @@ COPY  *.repo /etc/yum.repos.d/
 RUN mkdir ${RPM_DIR}/openEuler-24 -p && \
     yum install createrepo dnf-plugins-core python3 python3-pip -yq && \
     yumdownloader --resolve --archlist=noarch,aarch64 --destdir=${RPM_DIR}/openEuler-24 ${RPMS} && \
-    pip3 download jsonpatch pyyaml kubernetes -d ${RPM_DIR}/kylin-V10-sp2/simple
+    pip3 download jsonpatch pyyaml kubernetes -d ${RPM_DIR}/openEuler-24/simple
 RUN createrepo ${RPM_DIR}/openEuler-24
 
 FROM nginx:alpine
