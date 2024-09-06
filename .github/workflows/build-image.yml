@@ -99,6 +99,7 @@ jobs:
 
           FROM nginx:alpine
           COPY --from=base /usr/share/nginx/html/rpms/${{ matrix.os }} /usr/share/nginx/html/rpms/${{ matrix.os }}
+          COPY --from=base /usr/share/nginx/html/rpms/pypi /usr/share/nginx/html/rpms/pypi
 
           COPY index.html /usr/share/nginx/html
           COPY nginx.conf /etc/nginx/conf.d/default.conf
