@@ -12,7 +12,9 @@ COPY  *.repo /etc/yum.repos.d/
 RUN mkdir ${RPM_DIR}/kylin-V10-sp2 -p && \
     yum install createrepo dnf-plugins-core python3 python3-pip -yq && \
     yumdownloader --resolve --archlist=noarch,aarch64 --destdir=${RPM_DIR}/kylin-V10-sp2 ${RPMS} && \
-    pip3 download jsonpatch pyyaml kubernetes -d ${RPM_DIR}/kylin-V10-sp2/simple
+    pip3 install pip2pi && \
+    pip2tgz ${RPM_DIR}/pypi requests jsonpatch pyyaml kubernetes && \
+    dir2pi ${RPM_DIR}/pypi
 RUN createrepo ${RPM_DIR}/kylin-V10-sp2
 
 FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp3 as kylinv10sp3
