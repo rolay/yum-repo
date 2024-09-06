@@ -1,4 +1,4 @@
-ARG RPM_DIR=/rmps
+ARG RPM_DIR=/rpms
 ARG RPMS="audit audit-libs-python3 bash-completion bind-utils curl chrony conntrack fuse \
     git graphviz ipset ipvsadm iscsi-initiator-utils jq kubernetes-cni nfs-utils nc net-tools sysstat tar tcpdump \
     python3 python3-chardet python3-docker python3-pip python3-requests python3-policycoreutils python3-libsemanage \
