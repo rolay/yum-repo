@@ -18,10 +18,10 @@ FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp3-2403 as kylinv10s
 ARG RPM_DIR
 ARG RPMS
 COPY  *.repo /etc/yum.repos.d/
-RUN mkdir ${RPM_DIR}/kylin-V10 -p && \
+RUN mkdir ${RPM_DIR}/kylin-V10-sp3 -p && \
     yum install createrepo dnf-plugins-core python3 python3-pip -yq && \
-    yumdownloader --resolve --archlist=noarch,aarch64 --destdir=${RPM_DIR}/kylin-V10 ${RPMS}
-RUN createrepo ${RPM_DIR}/kylin-V10
+    yumdownloader --resolve --archlist=noarch,aarch64 --destdir=${RPM_DIR}/kylin-V10-sp3 ${RPMS}
+RUN createrepo ${RPM_DIR}/kylin-V10-sp3
 
 FROM openeuler/openeuler:22.03-lts-sp4 as openEuler22
 ARG RPM_DIR
