@@ -14,7 +14,7 @@ RUN mkdir ${RPM_DIR}/kylin-V10-sp2 -p && \
     yumdownloader --resolve --archlist=noarch,aarch64 --destdir=${RPM_DIR}/kylin-V10-sp2 ${RPMS}
 RUN createrepo ${RPM_DIR}/kylin-V10-sp2
 
-FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp3 as kylinv10sp3
+FROM swr.cn-southwest-2.myhuaweicloud.com/wutong/kylin:v10-sp3-2403 as kylinv10sp3
 ARG RPM_DIR
 ARG RPMS
 COPY  *.repo /etc/yum.repos.d/
