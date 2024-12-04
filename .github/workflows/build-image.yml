@@ -69,7 +69,7 @@ jobs:
       matrix:
         os: 
           - kylin-V10-sp2
-          - kylin-V10
+          - kylin-V10-sp3
           - openEuler-22
           - openEuler-24
     steps:
