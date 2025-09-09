@@ -23,8 +23,8 @@ RUN mkdir ${RPM_DIR}/kylin-V10-sp3 -p && \
     yumdownloader --resolve --archlist=noarch,aarch64 --destdir=${RPM_DIR}/kylin-V10-sp3 ${RPMS}
 RUN createrepo ${RPM_DIR}/kylin-V10-sp3
 
-FROM openeuler/openeuler:22.03-lts as openEuler22
-# FROM openeuler/openeuler:22.03-lts-sp4 as openEuler22
+#FROM openeuler/openeuler:22.03-lts as openEuler22
+FROM openeuler/openeuler:22.03-lts-sp4 as openEuler22
 ARG RPM_DIR
 ARG RPMS
 COPY  *.repo /etc/yum.repos.d/
